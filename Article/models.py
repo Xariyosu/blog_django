@@ -6,5 +6,5 @@ from django.db import models
 class Article(models.Model):
     title = models.CharField(max_length=120)
     author = models.CharField(max_length=50)
-    content = models.CharField(max_length=500)
+    content = models.TextField(blank=False, null=False)
     priority = models.BooleanField(default=False)
