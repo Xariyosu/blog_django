@@ -1,0 +1,82 @@
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav a:-webkit-any-link {
+    text-decoration: none;
+    color: mediumpurple;
+}
+
+nav li {
+    display: inline; /* or inline-block */
+    margin-right: 10px; /* Adjust the margin as needed */
+    background-color: #66ff99;
+    padding: 5px;
+    font-family: "Comic Sans MS";
+    border: 1px solid #006b1b;
+    border-radius: 5px;
+}
+
+body {
+  background-color: #aaa;
+}
+
+
+.article-content {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #6f94c6;
+}
+
+.priority {
+    background-color: #baae81;
+    border: 1px solid #624809;
+}
+
+.article-title {
+  margin: 20px 0;
+  font-size: 18px;
+  font-family: "Comic Sans MS";
+}
+
+/* Style the commenter's name and date */
+.comment .comment-meta {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Style the comment text */
+.comment {
+  font-size: 16px;
+  line-height: 1.4;
+  margin-top: 10px;
+  background-color: #6f9;
+}
+
+/* Style links within comments */
+.comment a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.comment a:hover {
+  text-decoration: underline;
+}
+
+/* Style nested comments (replies) */
+.comment .comment-reply {
+  margin-left: 20px;
+  border-left: 2px solid #007bff;
+  padding-left: 10px;
+}
+
+/* Style comment author's avatar (if applicable) */
+.comment .comment-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}

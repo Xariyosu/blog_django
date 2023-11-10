@@ -35,5 +35,6 @@ class ArticleForm(forms.ModelForm):
         fields = [
             'title',
             'author',
-            'content'
+            'content',
+            'priority'
         ]

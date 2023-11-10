@@ -1,12 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-
+<script src="{% static 'comments_toggle.js' %}"></script>
+<form method="get" action="{% url 'create_article' %}">
+    <button type="submit">New Article</button>
+</form>
+    <br>
 {% for article in object_list %}
-    <p> <i>{{ article.author }}</i><br>[{{ article.id }}] {{ article.title }} <br>
-    <p>{{ article.content }}</p>
-    </p>
+    {% if article.priority %}
+        <div class="article-content priority">
+    {% else %}
+        <div class="article-content">
+    {% endif %}
+        <span class="comment-meta"><i>{{ article.author }}</i><br>
+            {% if article.priority %}
+                <span class="article-title" style="color: red;"><b>{{ article.title|upper }}</b></span>
+            {% else %}
+                <span class="article-title">{{ article.title }}</span>
+            {% endif %}
+        </span>
+        ({{ article.id }})
+        <hr>
+        <p>{{ article.content }}</p>
+        <h3>Comments:</h3>
 
+        <p><button class="showCommentsButton" data-article-id="{{ article.id }}">Show Comments</button></p>
+
+        {% for comment in comments %}
+            {% if comment.article == article %}
+                <ul class="comment" style="display: none;">
+                    <strong>{{ comment.author }}</strong> ({{ comment.created_at }})
+                    <br>
+                    {{ comment.content }}
+                </ul>
+            {% endif %}
+        {% endfor %}
+
+        <form method="post" action="{% url 'add_comment' %}">
+            {% csrf_token %}
+
+            <input type="hidden" name="article_id" value="{{ article.id }}">
+
+            <label for="author" style="margin-right: 10px;">Your Name:</label>
+            <input type="text" name="author" required style="margin-right: 10px;">
+            <br>
+            <!-- <label for="content" style="margin-right: 10px;">Your Comment:</label> -->
+            <textarea name="content" rows="4" required style="margin: 10px 0 10px; width: 80%;"></textarea>
+            <br>
+            <button type="submit">Add Comment</button>
+        </form>
+    </div>
 {% endfor %}
 
 

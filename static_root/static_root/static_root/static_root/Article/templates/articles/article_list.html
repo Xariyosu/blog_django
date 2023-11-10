@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for article in object_list %}
+
+    <p class="article-content">
+        <i>{{ article.author }}</i><br>[{{ article.id }}] {{ article.title }} <br>
+        <p class="comment">{{ article.content }}</p>
+    </p>
+
+{% endfor %}
+
+
+{% endblock %}
