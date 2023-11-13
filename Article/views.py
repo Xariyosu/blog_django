@@ -7,11 +7,10 @@ from .forms import ArticleForm
 
 
 def article_list_view(request):
-    articles = Article.objects.all()
+    articles = Article.objects.all().order_by('-priority')
     comments = Comment.objects.all().order_by('-created_at')
-    articles_sorted = sorted(reversed(articles), key=lambda x: (not x.priority, x.priority))
     context = {
-        'object_list': articles_sorted,
+        'object_list': articles,
         'comments': comments
     }
     return render(request, "articles/article_list.html", context)
@@ -23,7 +22,7 @@ def add_comment(request):
         author = request.POST.get('author')
         content = request.POST.get('content')
 
-        article = Article.objects.get(pk=article_id)
+        article = get_object_or_404(Article, pk=article_id)
 
         Comment.objects.create(
             article=article,
@@ -44,10 +43,9 @@ def add_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
             form.save()
             return redirect('article-list')  # Assuming you have a URL named 'article-list'
     else:
         form = ArticleForm()
 
-    return render(request, 'article/create_article.html', {'form': form})
+    return render(request, 'articles/create_article.html', {'form': form})
