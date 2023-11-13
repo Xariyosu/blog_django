@@ -1,10 +1,13 @@
 <nav>
-    {% include 'account.html' %}
-    <h1>Blog</h1>
-    <ul>
-        <li><a href="{% url 'article-list' %}">HOME</a></li>
-        <li><a href="{% url 'create_article' %}">New Article</a></li>
-        <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
-    </ul>
-
+    <div class="navbar-login">
+        {% include 'account.html' %}
+    </div>
+    <div class="navbar-left">
+        <h1>BLOG</h1>
+        <ul>
+            <li><a href="{% url 'article-list' %}">HOME</a></li>
+            <li><a href="{% url 'create_article' %}">New Article</a></li>
+            <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
+        </ul>
+    </div>
 </nav>
