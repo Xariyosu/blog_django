@@ -6,6 +6,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 LOGIN_REDIRECT_URL = "article-list"
 LOGOUT_REDIRECT_URL = "article-list"
 
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
