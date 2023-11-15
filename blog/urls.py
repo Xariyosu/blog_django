@@ -21,15 +21,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 
-from Article.views import article_list_view, add_comment, ArticleCreateView, add_article
+from Article.views import article_list_view, add_comment, ArticleCreateView, add_article, all_comments, article_view
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', article_list_view, name='article-list'),
+    path('<int:article_id>/', article_view, name='article'),
     # path('', TemplateView.as_view(template_name="article_list.html"), name='article-list'),
     path('add_comment/', add_comment, name='add_comment'),
     path('create_article/', ArticleCreateView.as_view(), name='create_article'),
     path('add_article/', add_article, name='add_article'),
+    path('all_comments/', all_comments, name='all_comments'),
+
 
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),

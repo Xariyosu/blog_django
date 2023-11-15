@@ -45,22 +45,24 @@ nav {
 .main-content {
     float: left;
     padding: 20px;
+
 }
 
 body {
-    background-color: #aaa;
+    background: url('https://wallpaperaccess.com/full/2083809.jpg') center/cover no-repeat;
 }
 
 
 .article-content {
-  margin: 20px 0;
+  margin: 25px 10em;
   padding: 10px;
+    width: 90em;
   border: 1px solid #ddd;
-  background-color: #6f94c6;
+  background-color: rgba(111, 148, 198, 0.75);
 }
 
 .priority {
-    background-color: #baae81;
+    background-color: rgba(186, 174, 129, 0.75);
     border: 1px solid #624809;
 }
 
@@ -77,11 +79,21 @@ body {
 }
 
 /* Style the comment text */
+.article-content .comment {
+    width: 40em;
+  margin: 15px 0;
+
+}
+
 .comment {
+  margin: 15px 15em;
+    padding: 15px;
   font-size: 16px;
   line-height: 1.4;
-  margin-top: 10px;
-  background-color: #6f9;
+    width: 90em;
+  background-color: rgba(65, 183, 102, 0.82);
+    border: 1px solid #0b2c03;
+    border-radius: 5px;
 }
 
 /* Style links within comments */
