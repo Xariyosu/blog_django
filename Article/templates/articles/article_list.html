@@ -3,11 +3,11 @@
 
 {% block content %}
 <script src="{% static 'comments_toggle.js' %}"></script>
-{% if user.is_authenticated %}
+<!--
     <form method="get" action="{% url 'create_article' %}">
         <button type="submit">New Article</button>
     </form>
-{% endif %}
+-->
 <br>
 {% for article in object_list %}
     {% if article.priority %}
@@ -15,7 +15,7 @@
     {% else %}
         <div class="article-content">
     {% endif %}
-        <span class="comment-meta"><i>{{ article.author }}</i><br>
+        <span class="comment-meta"><strong>{{ article.author }}</strong> ({{ article.created_at }})<br>
             {% if article.priority %}
                 <span class="article-title" style="color: red;"><b>{{ article.title|upper }}</b></span>
             {% else %}
@@ -47,7 +47,8 @@
                 <input type="hidden" name="article_id" value="{{ article.id }}">
 
                 <label for="author" style="margin-right: 10px;">Your Name:</label>
-                <input type="text" name="author" required style="margin-right: 10px;">
+                <input type="hidden" name="author" value="{{ user.username }}">
+                <input type="text" value="{{ user.username }}" required style="margin-right: 10px;" disabled>
                 <br>
                 <!-- <label for="content" style="margin-right: 10px;">Your Comment:</label> -->
                 <textarea name="content" rows="4" required style="margin: 10px 0 10px; width: 80%;"></textarea>
