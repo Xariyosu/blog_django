@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'comments_toggle.js' %}"></script>
+<!--
+    <form method="get" action="{% url 'create_article' %}">
+        <button type="submit">New Article</button>
+    </form>
+-->
+<br>
+{% if article %}
+    {% if article.priority %}
+        <div class="article-content priority">
+    {% else %}
+        <div class="article-content">
+    {% endif %}
+        <span class="comment-meta"><strong>{{ article.author }}</strong> ({{ article.created_at }})<br>
+            {% if article.priority %}
+                <span class="article-title" style="color: red;"><b>{{ article.title|upper }}</b></span>
+            {% else %}
+                <span class="article-title">{{ article.title }}</span>
+            {% endif %}
+        </span>
+        ({{ article.id }})
+        <hr>
+        <p>{{ article.content }}</p>
+        <h3>Comments ({{ article.comment_set.count }}):</h3>
+
+        {% if article.comment_set.count != 0 %}
+            <p><button class="showCommentsButton" data-article-id="{{ article.id }}">Show Comments</button></p>
+        {% endif %}
+
+        {% for comment in comments %}
+            {% if comment.article == article %}
+                <ul class="comment" style="display: none;">
+                    <strong>{{ comment.author }}</strong> ({{ comment.created_at }})
+                    <br>
+                    {{ comment.content }}
+                </ul>
+            {% endif %}
+        {% endfor %}
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+
+                <input type="hidden" name="article_id" value="{{ article.id }}">
+
+                <label for="author" style="margin-right: 10px;">Your Name:</label>
+                <input type="hidden" name="author" value="{{ user.username }}">
+                <input type="text" value="{{ user.username }}" required style="margin-right: 10px;" disabled>
+                <br>
+                <!-- <label for="content" style="margin-right: 10px;">Your Comment:</label> -->
+                <textarea name="content" rows="4" required style="margin: 10px 0 10px; width: 80%;"></textarea>
+                <br>
+                <button type="submit">Add Comment</button>
+            </form>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+{% endblock %}

@@ -6,9 +6,9 @@
         <h1>BLOG</h1>
         <ul>
             <li><a href="{% url 'article-list' %}">HOME</a></li>
+            <li><a href="{% url 'all_comments' %}">All Comments</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'create_article' %}">New Article</a></li>
-                <li><a href="{% url 'all_comments' %}">All Comments</a></li>
             {% endif %}
             <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
         </ul>
