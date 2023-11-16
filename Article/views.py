@@ -37,6 +37,17 @@ def article_view(request, article_id):
 
 
 @login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    article_id = comment.article_id
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('article', article_id)
+
+    return render(request, 'articles/delete_comment.html', {'comment': comment})
+
+
+@login_required
 def add_comment(request):
     if request.method == 'POST':
         article_id = request.POST.get('article_id')
@@ -51,7 +62,7 @@ def add_comment(request):
             content=content,
         )
 
-    return redirect('article-list')
+    return redirect('article', article_id)
 
 
 class ArticleCreateView(CreateView):
