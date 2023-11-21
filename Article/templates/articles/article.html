@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/article_list.css' %}">
+{% endblock %}
 <script src="{% static 'comments_toggle.js' %}"></script>
 <!--
     <form method="get" action="{% url 'create_article' %}">
@@ -10,56 +13,94 @@
 -->
 <br>
 {% if article %}
+
     {% if article.priority %}
-        <div class="article-content priority">
+    <div class="card text-center bg-info" style="width: 70rem; background-color: rgba(189,209,224,0.3)!important;" >
     {% else %}
-        <div class="article-content">
+    <div class="card text-center bg-light" style="width: 70rem; background-color:rgba(113,144,182,0.95)!important;">
     {% endif %}
-        <span class="comment-meta"><strong>{{ article.author }}</strong> ({{ article.created_at }})<br>
-            {% if article.priority %}
-                <span class="article-title" style="color: red;"><b>{{ article.title|upper }}</b></span>
-            {% else %}
-                <span class="article-title">{{ article.title }}</span>
-            {% endif %}
-        </span>
-        ({{ article.id }})
-        <hr>
-        <p>{{ article.content }}</p>
-        <h3>Comments ({{ article.comment_set.count }}):</h3>
-
-        {% if article.comment_set.count != 0 %}
-            <p><button class="showCommentsButton" data-article-id="{{ article.id }}">Show Comments</button></p>
-        {% endif %}
-
-        {% for comment in comments %}
-            {% if comment.article == article %}
-                <ul class="comment" style="display: none;">
-                    {% if user.is_authenticated and user.is_staff %}
-                        <p><a href="{% url 'delete_comment' comment_id=comment.id %}">Delete Comment</a></p>
-                    {% endif %}
-                    <strong>{{ comment.author }}</strong> ({{ comment.created_at }})
-                    <br>
-                    {{ comment.content }}
-                </ul>
-            {% endif %}
-        {% endfor %}
-        {% if user.is_authenticated %}
-            <form method="post" action="{% url 'add_comment' %}">
-                {% csrf_token %}
-
-                <input type="hidden" name="article_id" value="{{ article.id }}">
-
-                <label for="author" style="margin-right: 10px;">Your Name:</label>
-                <input type="hidden" name="author" value="{{ user.username }}">
-                <input type="text" value="{{ user.username }}" required style="margin-right: 10px;" disabled>
+      <div class="card-header" style="background-color:rgba(232,184,184,0.95)!important;">
+        <strong>{{ article.author }}</strong> ({{ article.created_at }})
+      </div>
+      <div class="card-body" style="background-color:rgba(234,217,217,0.95)!important;">
+        <h5 class="card-title">{{ article.title }}</h5>
+          <hr>
+        <p class="card-text">{{ article.content }}</p>
+      </div>
+        <div class="card-footer align-left">
+            {% if user.is_authenticated %}
                 <br>
-                <!-- <label for="content" style="margin-right: 10px;">Your Comment:</label> -->
-                <textarea name="content" rows="4" required style="margin: 10px 0 10px; width: 80%;"></textarea>
-                <br>
-                <button type="submit">Add Comment</button>
-            </form>
-        {% endif %}
+                <form method="post" action="{% url 'add_comment' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="article_id" value="{{ article.id }}">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1 author" class="form-label">Your name: <b>{{ user.username }}</b></label>
+                      <input type="hidden" name="author" class="form-control" id="exampleFormControlInput1" value="{{ user.username }}">
+                    </div>
+                    <div class="mb-3">
+                      <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Add comment</button>
+                    </div>
+                </form>
+            {% endif %}
+            <br>
+            All comments: {{ article.comment_set.count}}
+
+
+            <div class="card-body comments comment" style="background-color:rgba(113,144,182,0.1)!important;">
+                {% if article.comment_set.count != 0 %}
+                    <hr>
+                        <p style="background-color:rgba(234,217,217,0.95)!important;">
+                            {% for comment in comments %}
+                                {% if comment.article == article %}
+                                    <ul class="comment" style="background-color:rgba(113,144,182,0.9)!important;">
+
+                                        <strong>{{ comment.author }}</strong> ({{ comment.created_at }})
+                                        {% if user.is_authenticated and user.is_staff %}
+                                            <a href="{% url 'delete_comment' comment_id=comment.id %}">[Delete]</a>
+                                        {% endif %}
+                                        <hr>
+                                        {{ comment.content }}
+                                    </ul>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                {% endif %}
+            </div>
+
+
+
+
+
+
+{#            {% if article.comment_set.count != 0 %}#}
+{#                <p><button class="showCommentsButton btn btn-primary" data-article-id="{{ article.id }}">Show Comments</button></p>#}
+{#            {% endif %}#}
+{#            <div class="card-body comments comment" style="background-color:rgba(113,144,182,0.95)!important; display: none">#}
+{#                {% if article.comment_set.count != 0 %}#}
+{#                    <hr>#}
+{#                        <p style="background-color:rgba(234,217,217,0.95)!important;">#}
+{#                            {% for comment in comments %}#}
+{#                                {% if comment.article == article %}#}
+{#                                    <ul class="comment" style="display: none;">#}
+{#                                        {% if user.is_authenticated and user.is_staff %}#}
+{#                                            <p><a href="{% url 'delete_comment' comment_id=comment.id %}">Delete Comment</a></p>#}
+{#                                        {% endif %}#}
+{#                                        <strong>{{ comment.author }}</strong> ({{ comment.created_at }})#}
+{#                                        <hr>#}
+{#                                        {{ comment.content }}#}
+{#                                    </ul>#}
+{#                                {% endif %}#}
+{#                            {% endfor %}#}
+{#                        </p>#}
+{#                {% endif %}#}
+{#            </div>#}
+        </div>
+
     </div>
+
 {% endif %}
 
 

@@ -1,16 +1,66 @@
-<nav>
-    <div class="navbar-login">
-        {% include 'account.html' %}
+{#<nav>#}
+{#    #}
+{#    <div class="navbar-login">#}
+{#        {% include 'account.html' %}#}
+{#    </div>#}
+{#    <div class="navbar-left">#}
+{#        <h1 style="font-family:Papyrus, Fantasy; font-size:3.5em" >Blog</h1>#}
+{#        <ul>#}
+{#            <li><a href="{% url 'article-list' %}">HOME</a></li>#}
+{#            <li><a href="{% url 'all_comments' %}">All Comments</a></li>#}
+{#            {% if user.is_authenticated %}#}
+{#                <li><a href="{% url 'create_article' %}">New Article</a></li>#}
+{#            {% endif %}#}
+{#            <li><a href="{% url 'admin:index' %}">ADMIN</a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</nav>#}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(156,195,245,0.95);">
+{#    <div class="navbar-login">#}
+{#        {% include 'account.html' %}#}
+{#    </div>#}
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'article-list' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'all_comments' %}">Comments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'create_article' %}">New article</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item disabled">{{ user.username }}</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'password_reset' %}">change password</a></li>
+                {% if user.is_authenticated and user.is_staff %}
+                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">ADMIN</a></li>
+                {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        {% endif %}
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
-    <div class="navbar-left">
-        <h1>BLOG</h1>
-        <ul>
-            <li><a href="{% url 'article-list' %}">HOME</a></li>
-            <li><a href="{% url 'all_comments' %}">All Comments</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'create_article' %}">New Article</a></li>
-            {% endif %}
-            <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
-        </ul>
-    </div>
+  </div>
 </nav>

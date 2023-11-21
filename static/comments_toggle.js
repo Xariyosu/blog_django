@@ -1,4 +1,5 @@
 function toggleComments(articleContainer) {
+    console.log('asd')
     let comments = articleContainer.querySelectorAll('.comment');
     if (comments.length > 0) {
         comments.forEach(function(comment) {
@@ -16,11 +17,11 @@ function toggleComments(articleContainer) {
 document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('click', function (event) {
         let clickedElement = event.target;
-
         if (clickedElement.classList.contains('showCommentsButton')) {
-            let articleContainer = clickedElement.closest('.article-content');
+            let articleContainer = clickedElement.closest('.card-footer');
 
             if (articleContainer) {
+                console.log('3')
                 toggleComments(articleContainer);
                 clickedElement.textContent = (clickedElement.textContent === 'Show Comments') ? 'Hide Comments' : 'Show Comments';
             }

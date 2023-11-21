@@ -2,25 +2,28 @@
 {% load static %}
 
 {% block content %}
-<br>
-<form method="get" action="">
-    {% csrf_token %}
-    {{ form.filter_option }}
-    <button type="submit">Show comments</button>
-</form>
-{% if comments %}
-    {% for comment in comments %}
-        <ul class="comment">
-            <strong>{{ comment.article.title }}</strong>
-            <br>
-            <i>{{ comment.author }}</i> ({{ comment.created_at }})
-            <br>
-            <p>{{ comment.content }}</p>
-        </ul>
-    {% endfor %}
-{% else %}
-    <p>No comments found.</p>
-{% endif %}
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% endblock %}
+    <br>
+    <form method="get" action="">
+        {% csrf_token %}
+        {{ form.filter_option }}
+        <button type="submit">Show comments</button>
+    </form>
+    {% if comments %}
+        {% for comment in comments %}
+            <ul class="comment">
+                <strong>{{ comment.article.title }}</strong>
+                <br>
+                <i>{{ comment.author }}</i> ({{ comment.created_at }})
+                <br>
+                <p>{{ comment.content }}</p>
+            </ul>
+        {% endfor %}
+    {% else %}
+        <p>No comments found.</p>
+    {% endif %}
 
 
 

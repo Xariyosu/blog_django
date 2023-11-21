@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% endblock %}
     <form class="center-form" method="POST" action="{% url 'add_article' %}"> {% csrf_token %}
         <b>Create a New Article</b>
 {#        {{ form.as_p }}#}

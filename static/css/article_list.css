@@ -1,0 +1,15 @@
+.card {
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+body {
+    /*background-color: #c2d4e0;*/
+    background-image: url("https://img.freepik.com/free-vector/random-square-halftone-pattern_1409-1062.jpg?w=1380&t=st=1700534641~exp=1700535241~hmac=2b2849d3de8bd1c482d2d451920cff6f1b98f0e5216b62da6b7dd7177a5458cb");
+    background-size: 100%;
+    backdrop-filter: blur(3px);
+}
+
+.comment {
+    padding: 10px;
+}

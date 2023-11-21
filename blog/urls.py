@@ -19,7 +19,6 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic.base import TemplateView
 
 from Article.views import (
     article_list_view,
@@ -29,6 +28,7 @@ from Article.views import (
     article_view,
     delete_comment
 )
+
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -44,6 +44,7 @@ urlpatterns = [
 
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

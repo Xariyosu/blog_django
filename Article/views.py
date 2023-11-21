@@ -13,7 +13,6 @@ def article_list_view(request):
     comments = Comment.objects.all().order_by('-created_at')
     k_comments = []
     seen_articles = set()
-
     for comment in comments:
         article_id = comment.article_id
         if article_id not in seen_articles:
@@ -62,7 +61,9 @@ def add_comment(request):
             content=content,
         )
 
-    return redirect('article', article_id)
+        return redirect('article', article_id)
+
+    return redirect('article-list')
 
 
 class ArticleCreateView(CreateView):
