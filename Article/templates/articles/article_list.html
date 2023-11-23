@@ -19,10 +19,14 @@
     {% else %}
     <div class="card text-center bg-light" style="width: 70rem; background-color:rgba(113,144,182,0.70)!important;">
     {% endif %}
-      <div class="card-header">
+      <div class="card-header" style="text-align: left;">
         <strong>{{ article.author }}</strong> ({{ article.created_at }})
       </div>
+      {% if article.priority %}
       <div class="card-body" style="background-color:rgba(234,217,217,0.95)!important;">
+      {% else %}
+      <div class="card-body" style="background-color:rgba(193,213,245,0.95)!important;">
+      {% endif %}
         <h5 class="card-title">{{ article.title }}</h5>
           <hr>
         <p class="card-text">{{ article.content }}</p>
@@ -32,7 +36,11 @@
             Comments: {{ article.comment_set.count}}
             {% if article.comment_set.count != 0 %}
                 <hr>
-                    <p class="comment" style="background-color:rgba(241,237,237,0.7)!important;">
+                    {% if article.priority %}
+                    <p class="comment" style="background-color:rgba(241,237,237,0.7)!important;text-align: left">
+                    {% else %}
+                    <p class="comment" style="background-color:rgba(193,213,245,0.7)!important;text-align: left">
+                    {% endif %}
                         {% for comment in comments %}
                             {% if comment.article == article %}
                                 <b>{{ comment.author }}</b> ({{ comment.created_at }})

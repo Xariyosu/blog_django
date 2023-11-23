@@ -12,17 +12,25 @@
     </form>
 -->
 <br>
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a href="{% url 'article-list' %}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Back to Home</a>
+</div>
+<br>
 {% if article %}
 
     {% if article.priority %}
-    <div class="card text-center bg-info" style="width: 70rem; background-color: rgba(189,209,224,0.3)!important;" >
-    {% else %}
-    <div class="card text-center bg-light" style="width: 70rem; background-color:rgba(113,144,182,0.95)!important;">
-    {% endif %}
-      <div class="card-header" style="background-color:rgba(232,184,184,0.95)!important;">
+    <div class="card text-center bg-info" style="width: 70rem; background-color: rgba(232,184,184,0.5)!important;" >
+      <div class="card-header" style="background-color:rgba(232,184,184,0.70)!important;text-align: left;">
         <strong>{{ article.author }}</strong> ({{ article.created_at }})
       </div>
-      <div class="card-body" style="background-color:rgba(234,217,217,0.95)!important;">
+      <div class="card-body" style="background-color:rgba(234,217,217,0.9)!important;">
+    {% else %}
+    <div class="card text-center bg-light" style="width: 70rem; background-color:rgba(113,144,182,0.5)!important;">
+      <div class="card-header" style="background-color:rgba(113,144,182,0.70)!important;text-align: left;">
+        <strong>{{ article.author }}</strong> ({{ article.created_at }})
+      </div>
+      <div class="card-body" style="background-color:rgba(193,213,245,0.9)!important;">
+    {% endif %}
         <h5 class="card-title">{{ article.title }}</h5>
           <hr>
         <p class="card-text">{{ article.content }}</p>
@@ -46,24 +54,25 @@
                 </form>
             {% endif %}
             <br>
-            All comments: {{ article.comment_set.count}}
+            <h5 style="text-align: left; margin: auto; padding: 10px;"> All comments: {{ article.comment_set.count}}</h5>
 
 
             <div class="card-body comments comment" style="background-color:rgba(113,144,182,0.1)!important;">
                 {% if article.comment_set.count != 0 %}
-                    <hr>
                         <p style="background-color:rgba(234,217,217,0.95)!important;">
                             {% for comment in comments %}
                                 {% if comment.article == article %}
-                                    <ul class="comment" style="background-color:rgba(113,144,182,0.9)!important;">
-
-                                        <strong>{{ comment.author }}</strong> ({{ comment.created_at }})
-                                        {% if user.is_authenticated and user.is_staff %}
-                                            <a href="{% url 'delete_comment' comment_id=comment.id %}">[Delete]</a>
-                                        {% endif %}
-                                        <hr>
-                                        {{ comment.content }}
-                                    </ul>
+                                    <div class="card text-center bg-info comment" style="background-color: rgba(189,209,224,0.3)!important;" >
+                                        <div class="card-header" style="background-color:rgba(126,225,94,0.95)!important;text-align: left">
+                                            <strong>{{ article.author }}</strong> ({{ article.created_at }})
+                                            {% if user.is_authenticated and user.is_staff %}
+                                                <a href="{% url 'delete_comment' comment_id=comment.id %}">[Delete]</a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-footer align-left" style="background-color:rgba(175,232,156,0.95)!important; text-align: left">
+                                            {{ comment.content }}
+                                        </div>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
                         </p>
